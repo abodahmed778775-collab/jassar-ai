@@ -6,8 +6,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-// قراءة ملفات واجهة المستخدم من المجلد الخاص بها
-app.use(express.static(path.join(__dirname, 'عام')));
+// قراءة ملفات واجهة المستخدم من المجلد الحقيقي
+app.use(express.static(path.join(__dirname, 'public')));
 
 // سحب المفتاح بأمان من متغيرات البيئة في سيرفر ريلواي
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
@@ -27,11 +27,9 @@ app.post('/api/generate', async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'عام', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-
 });
-
